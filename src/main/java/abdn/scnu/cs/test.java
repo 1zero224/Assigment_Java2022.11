@@ -5,12 +5,14 @@ import java.util.Scanner;
 public class test {
     public static void main(String[] args) {
 
-        Game game = new Game (4,4,1);
-
-        Scanner input=new Scanner(System.in);
-        while (true){
-            String round=input.next();
-            game.playRound(round);
-        }
     }
+    /*{
+        Scanner input=new Scanner(System.in);
+        String a=input.next();
+        String b=input.next();
+        String c=input.next();
+        String[] abc={a,b,c};
+        RunGame.main(abc);
+    }
+    */
 }

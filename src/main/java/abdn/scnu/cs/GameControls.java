@@ -5,9 +5,9 @@ public interface GameControls {
 
 	AbstractGameGrid getOpponentssGrid();
 
-	void exitGame();
+	void exitGame(String input);
 
-	void checkVictory();
+	boolean checkVictory();
 
 	void playRound(String inputCoordinates);
 }

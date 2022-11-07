@@ -10,7 +10,7 @@ public class PlayerGameGrid extends GameGrid{
         System.out.println("Player’s grid");
         for(int i=0;i<this.width;i++){
             for(int j=0;j<this.height;j++){
-                System.out.print(this.gameGrid[i][j]+" ");
+                System.out.print(gameGrid[i][j]+" ");
                 if(j==this.height-1){
                     System.out.println();
                 }

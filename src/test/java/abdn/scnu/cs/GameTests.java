@@ -13,8 +13,6 @@ import abdn.scnu.cs.GameGrid;
 import abdn.scnu.cs.OpponentGameGrid;
 import abdn.scnu.cs.PlayerGameGrid;
 
-
-
 import org.junit.Before;
 import org.junit.After;
 
@@ -85,42 +83,42 @@ public class GameTests {
 	@Test
 	public void t1_2() {
 		try {
-		BattleShip ship = new BattleShip ("Ship1");
+		BattleShip ship = new BattleShip ("Ship1"); 
 		 int [][] shipCoordinates = new int [1][2];
-		 shipCoordinates [0][0] = 1;
+		 shipCoordinates [0][0] = 1; 
 		 shipCoordinates [0][1] = 2;
-
-
-			ship.setHits(2);
-
+	       
+	
+			ship.setHits(2); 
+			
 			ship.setShipCoordinates(shipCoordinates);
-
+			
 			int [][] checkCoordinates = ship.getShipCoordinates();
-
+			
 			assertEquals (1, checkCoordinates[0][0]);
 			assertEquals (2, checkCoordinates[0][1]);
-
+			
 			assertEquals ("Ship1", ship.getName());
-
+			
 			assertEquals (2, ship.getHits());
-
-			boolean recognisedValues = false;
-
+			
+			boolean recognisedValues = false; 
+			
 			if (ship.getShipOrientation().equals("horizontal")||ship.getShipOrientation().equals("vertical")) {
 				recognisedValues= true;
 			}
-
+			
 			assertEquals (true, recognisedValues);
-
-
-
+			
+	       
+	        
 	    } catch (Exception | Error e) {
 	        fail(ANSI_WHITE_BACKGROUND +ANSI_BLACK+"T1.2 It seems the getter and setter methods are not working as expected. "+ ANSI_RESET+ e);
-	    }
-
+	    }	
+		
 	}
-
-
+	
+	
 	@Test
 	public void t1_3() {
 		try {
@@ -146,7 +144,7 @@ public class GameTests {
 	    }	
 		
 	}
-
+	
 	@Test
 	public void t2_1() {
 	       
@@ -199,7 +197,7 @@ public class GameTests {
 	    }	
 		
 	}
-
+	
 	@Test
 	public void t2_3() {
 	       
@@ -261,7 +259,7 @@ public class GameTests {
 	    }	
 		
 	}
-
+	
 	@Test
 	public void t2_4() {
 	       
@@ -387,7 +385,7 @@ public class GameTests {
 	    }	
 		
 	}
-
+	
 	@Test
 	public void t3_1() {
 	       
@@ -433,22 +431,22 @@ public class GameTests {
 			
 			game.checkVictory();
 			
-			String output = outContent.toString().trim();
-
+			String output = outContent.toString().trim(); 
+	       
 	        assertTrue (output.contains("You have won!"));
-
-	        outContent.reset();
-
+	        
+	        outContent.reset();  
+	        
 	        grid1.ships[0].setHits(0);
-
+	        
 	        grid2.ships[0].setHits(3);
-
+	        
 	    	game.checkVictory();
-	        output = outContent.toString().trim();
-
+	        output = outContent.toString().trim(); 
+		       
 	        assertTrue (output.contains("You have lost!"));
-
-	        outContent.reset();
+	        
+	        outContent.reset(); 
 			
 	        
 	    } catch (Exception | Error e) {
@@ -456,7 +454,7 @@ public class GameTests {
 	    }	
 			
 	}
-
+			
 			@Test
 			public void t3_4() {
 			       
@@ -533,8 +531,9 @@ public class GameTests {
 					
 			        
 			    } catch (Exception | Error e) {
-			        fail(ANSI_WHITE_BACKGROUND +ANSI_BLACK+"T3.4: Something is wrong with you playRound method. Check your code and also code of this test to see what is expected when your method is called.    "+ ANSI_RESET+ e);
+			        fail(ANSI_WHITE_BACKGROUND +ANSI_BLACK+"T3.4: Something is wrong with you rplayRound method. Check your code and also code of this test to see what is expected when your method is called.    "+ ANSI_RESET+ e);
 			    }	
 		
 	}
+
 }

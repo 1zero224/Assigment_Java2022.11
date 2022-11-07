@@ -9,12 +9,12 @@ public class RunGame {
             newround.YourGrid.printGrid();
             newround.OpponentGrid.printGrid();
             Scanner input=new Scanner(System.in);
-            do {
+            for(int i=0;i<newround.row* newround.column;i++){
+                System.out.println("\nPlease enter the position you wish to attack");
                 String Guess=input.next();
                 newround.exitGame(Guess);
                 newround.playRound(Guess);
-            }while (!newround.checkVictory());
-            newround.exitGame("exit");
+            }
         }
     }
 }

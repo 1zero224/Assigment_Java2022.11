@@ -12,8 +12,8 @@ public class OpponentGameGrid extends GameGrid{
         System.out.println("Opponent’s grid");
         for(int i=0;i<this.width;i++){
             for(int j=0;j<this.height;j++){
-                if(Objects.equals(this.gameGrid[i][j], "X ") | Objects.equals(this.gameGrid[i][j], "% ")){
-                    System.out.print(this.gameGrid[i][j]);
+                if(Objects.equals(gameGrid[i][j], "X") | Objects.equals(gameGrid[i][j], "%")){
+                    System.out.print(gameGrid[i][j]+" ");
                 }
                 else{
                     System.out.print(". ");

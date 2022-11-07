@@ -64,23 +64,13 @@ public class Game implements GameControls{
     public void playRound(String inputCoordinates) {
         exitGame(inputCoordinates);
         String[] attackCoordinates=inputCoordinates.split(",");
-        for(int i=0;i<this.shipQuantity;i++){
-            if(this.OpponentGrid.ships[i].checkAttack(Integer.parseInt(attackCoordinates[0]),Integer.parseInt(attackCoordinates[1]))){
-                System.out.println("HIT "+this.OpponentGrid.ships[i].name+"!!!");
-                OpponentGrid.gameGrid[Integer.parseInt(attackCoordinates[0])][Integer.parseInt(attackCoordinates[1])]="X";
-            }
-            else{
-                System.out.println("Miss!!!");
-                OpponentGrid.gameGrid[Integer.parseInt(attackCoordinates[0])][Integer.parseInt(attackCoordinates[1])]="%";
-            }
-            YourGrid.printGrid();
-            OpponentGrid.printGrid();
-            checkVictory();
-            robotStrategy();
-            YourGrid.printGrid();
-            OpponentGrid.printGrid();
-            checkVictory();
-
+        System.out.println("Player is attacking");
+        attack(Integer.parseInt(attackCoordinates[0]),Integer.parseInt(attackCoordinates[1]),OpponentGrid);
+        robotStrategy();
+        YourGrid.printGrid();
+        OpponentGrid.printGrid();
+        if(checkVictory()){
+            System.exit(0);
         }
     }
 
@@ -91,13 +81,21 @@ public class Game implements GameControls{
         do{
             attackX=attackCoordinate.nextInt(YourGrid.height);
             attackY=attackCoordinate.nextInt(YourGrid.width);
-        }while (!Objects.equals(YourGrid.gameGrid[attackX][attackY], "X") && !Objects.equals(YourGrid.gameGrid[attackX][attackY], "%"));
-        for(int i=0;i<this.shipQuantity;i++){
-            if(this.YourGrid.ships[i].checkAttack(attackX,attackY)){
-                YourGrid.gameGrid[attackX][attackY]="X";
-            }
-            else{
-                YourGrid.gameGrid[attackX][attackY]="%";
+        }while (Objects.equals(YourGrid.gameGrid[attackX][attackY], "X") | (Objects.equals(YourGrid.gameGrid[attackX][attackY], "%")));
+        System.out.println("Opponent is attacking");
+        attack(attackX,attackY,YourGrid);
+    }
+
+    public void attack(int x,int y,GameGrid Grid){
+        for(int i=0;i<this.shipQuantity;i++) {
+            if (Grid.ships[i].checkAttack(x,y)) {
+                System.out.println("HIT " + Grid.ships[i].name + "!!!");
+                Grid.gameGrid[x][y] = "X";
+            } else {
+                if (i == this.shipQuantity - 1) {
+                    System.out.println("Miss!!!");
+                   Grid.gameGrid[x][y] = "%";
+                }
             }
         }
     }

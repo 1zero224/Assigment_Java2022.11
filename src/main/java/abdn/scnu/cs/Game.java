@@ -63,10 +63,19 @@ public class Game implements GameControls{
     @Override
     public void playRound(String inputCoordinates) {
         exitGame(inputCoordinates);
+        checkInput(inputCoordinates);
         String[] attackCoordinates=inputCoordinates.split(",");
-        System.out.println("Player is attacking");
-        attack(Integer.parseInt(attackCoordinates[0]),Integer.parseInt(attackCoordinates[1]),OpponentGrid);
-        robotStrategy();
+        int attackX=Integer.parseInt(attackCoordinates[0]);
+        int attackY=Integer.parseInt(attackCoordinates[1]);
+        if(!Objects.equals(OpponentGrid.gameGrid[attackX][attackY], "X") && !Objects.equals(OpponentGrid.gameGrid[attackX][attackY], "%")){
+            System.out.println("Player is attacking");
+            attack(attackX,attackY,OpponentGrid);
+            robotStrategy();
+        }
+        else {
+            System.out.println("You cannot attack the same coordinates repeatedly.");
+        }
+        System.out.println();
         YourGrid.printGrid();
         OpponentGrid.printGrid();
         if(checkVictory()){
@@ -91,12 +100,19 @@ public class Game implements GameControls{
             if (Grid.ships[i].checkAttack(x,y)) {
                 System.out.println("HIT " + Grid.ships[i].name + "!!!");
                 Grid.gameGrid[x][y] = "X";
-            } else {
-                if (i == this.shipQuantity - 1) {
+                break;
+            }
+            else if (i == this.shipQuantity - 1){
                     System.out.println("Miss!!!");
                    Grid.gameGrid[x][y] = "%";
-                }
             }
+        }
+    }
+
+    public void checkInput(String input){
+        char[] simpleInput=input.toCharArray();
+        if((simpleInput.length!=3) || !Character.isDigit(simpleInput[0]) || !Character.isDigit(simpleInput[2]) || !Character.toString(simpleInput[1]).equals(",")){
+            throw new IllegalArgumentException();
         }
     }
 }

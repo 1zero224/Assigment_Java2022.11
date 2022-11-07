@@ -32,7 +32,9 @@ public class Game implements GameControls{
     @Override
     public void exitGame(String input) {
         if(input.contains("exit")){
+            waitAsecond();
             System.out.print("exit game - thank you for playing");
+            waitAsecond();
             System.exit(0);
         }
     }
@@ -50,10 +52,12 @@ public class Game implements GameControls{
             }
         }
         if(OpponentAttack==shipQuantity){
+            waitAsecond();
             System.out.println("You have lost!");
             return true;
         }
         else if(PlayerAttack==shipQuantity){
+            waitAsecond();
             System.out.println("You have won!");
             return true;
         }
@@ -63,22 +67,27 @@ public class Game implements GameControls{
     @Override
     public void playRound(String inputCoordinates) {
         exitGame(inputCoordinates);
-        checkInput(inputCoordinates);
+        checkCoordinate(inputCoordinates);
         String[] attackCoordinates=inputCoordinates.split(",");
         int attackX=Integer.parseInt(attackCoordinates[0]);
         int attackY=Integer.parseInt(attackCoordinates[1]);
         if(!Objects.equals(OpponentGrid.gameGrid[attackX][attackY], "X") && !Objects.equals(OpponentGrid.gameGrid[attackX][attackY], "%")){
             System.out.println("Player is attacking");
+            waitAsecond();
             attack(attackX,attackY,OpponentGrid);
+            waitAsecond();
             robotStrategy();
         }
         else {
             System.out.println("You cannot attack the same coordinates repeatedly.");
         }
+        waitAsecond();
         System.out.println();
         YourGrid.printGrid();
+        System.out.println();
         OpponentGrid.printGrid();
         if(checkVictory()){
+            waitAsecond();
             System.exit(0);
         }
     }
@@ -92,6 +101,7 @@ public class Game implements GameControls{
             attackY=attackCoordinate.nextInt(YourGrid.width);
         }while (Objects.equals(YourGrid.gameGrid[attackX][attackY], "X") | (Objects.equals(YourGrid.gameGrid[attackX][attackY], "%")));
         System.out.println("Opponent is attacking");
+        waitAsecond();
         attack(attackX,attackY,YourGrid);
     }
 
@@ -100,7 +110,6 @@ public class Game implements GameControls{
             if (Grid.ships[i].checkAttack(x,y)) {
                 System.out.println("HIT " + Grid.ships[i].name + "!!!");
                 Grid.gameGrid[x][y] = "X";
-                break;
             }
             else if (i == this.shipQuantity - 1){
                     System.out.println("Miss!!!");
@@ -109,10 +118,18 @@ public class Game implements GameControls{
         }
     }
 
-    public void checkInput(String input){
+    public void checkCoordinate(String input){
         char[] simpleInput=input.toCharArray();
         if((simpleInput.length!=3) || !Character.isDigit(simpleInput[0]) || !Character.isDigit(simpleInput[2]) || !Character.toString(simpleInput[1]).equals(",")){
             throw new IllegalArgumentException();
+        }
+    }
+
+    public void waitAsecond(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

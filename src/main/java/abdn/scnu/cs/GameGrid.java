@@ -46,11 +46,15 @@ public class GameGrid extends AbstractGameGrid {
         int[][] Coordinates = new int[3][2];
         int row;
         int column;
+
+
         if (Objects.equals(ship.getShipOrientation(), "horizontal")) {
             row = randomLocation.nextInt(height);
-            column = randomLocation.nextInt(width-3)+1;
+            if(width==3){column=1;}
+            else {column = randomLocation.nextInt(width-3)+1;}
         } else {
-            row = randomLocation.nextInt(height-3)+1;
+            if(height==3) {row=1;}
+            else {row = randomLocation.nextInt(height-3)+1;}
             column = randomLocation.nextInt(width);
         }
         Coordinates[0][0] = row;

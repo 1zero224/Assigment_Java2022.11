@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class RunGame {
 
+    //Check the input and run the game
     public static void main(String[] args){
+        //Check whether the input to main is incorrect
         try{
             if(!(args.length ==3)){
                 throw new IllegalArgumentException();
@@ -17,12 +19,15 @@ public class RunGame {
                 }
             }
 
+            //Initializes the game from input
             Game newRound=new Game(Integer.parseInt(args[0]),Integer.parseInt(args[1]),Integer.parseInt(args[2]));
             newRound.YourGrid.printGrid();
             System.out.println();
             newRound.OpponentGrid.printGrid();
             Scanner input=new Scanner(System.in);
             String Guess;
+
+            //Check coordinate input and play multiple rounds
             for(int i=0;i<newRound.row* newRound.column;i++) {
                 newRound.waitAsecond();
                 System.out.println("\nPlease enter the position you wish to attack");

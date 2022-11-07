@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class OpponentGameGrid extends GameGrid{
 
+    //Initialization of the OpponentGameGrid
     public OpponentGameGrid(int height, int width, int shipQuantity) {
         super(height, width, shipQuantity);
     }
 
+    //Get the opponent grid, process it and print it
     protected void printGrid(){
         System.out.println("Opponent’s grid");
         for(int i=0;i<this.width;i++){

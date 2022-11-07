@@ -1,5 +1,6 @@
 package abdn.scnu.cs;
 
+//Provide a definition of the methods required for the game to run
 public interface GameControls {
 	AbstractGameGrid getPlayersGrid();
 

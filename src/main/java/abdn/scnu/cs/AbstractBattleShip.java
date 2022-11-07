@@ -1,7 +1,5 @@
 package abdn.scnu.cs;
 
-
-
 public abstract class AbstractBattleShip {
     
 	protected String name;
@@ -11,8 +9,7 @@ public abstract class AbstractBattleShip {
 	protected String shipOrientation;
 	
 	protected int[][] shipCoordinates ;
-	
-	
+
 	public abstract boolean checkAttack (int row,int column);
 	
 	public abstract String getName();

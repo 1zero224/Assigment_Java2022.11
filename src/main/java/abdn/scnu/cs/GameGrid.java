@@ -8,21 +8,26 @@ public class GameGrid extends AbstractGameGrid {
     protected int height;
     protected int shipQuantity;
 
+    //Initialize the game, generate player and opponent grids and ships, and place ships on the grid
     public GameGrid(int height, int width, int shipQuantity) {
         this.width = width;
         this.height = height;
         this.shipQuantity = shipQuantity;
 
+        //Generate a grid based on the height and width of the input
         gameGrid = new String[height][width];
 
+        //Initialize the grid
         initializeGrid();
 
+        //Generate ships and place ships in the grid
         generateShips(shipQuantity);
         for (int i = 0; i < shipQuantity; i++) {
             placeShip(ships[i]);
         }
     }
 
+    //Initialize everything in the grid to "."
     @Override
     public void initializeGrid() {
         for (int i = 0; i < height; i++) {
@@ -32,6 +37,7 @@ public class GameGrid extends AbstractGameGrid {
         }
     }
 
+    //Generate the corresponding number of ships as entered and name them in sequence
     @Override
     public void generateShips(int numberOfShips) {
         ships = new AbstractBattleShip[numberOfShips];
@@ -40,6 +46,7 @@ public class GameGrid extends AbstractGameGrid {
         }
     }
 
+    //Generate the orientation and coordinates of the ship and place it in the grid
     @Override
     public void placeShip(AbstractBattleShip ship) {
         Random randomLocation = new Random();
@@ -47,7 +54,7 @@ public class GameGrid extends AbstractGameGrid {
         int row;
         int column;
 
-
+        //Randomly generate ship coordinates based on the direction of the ship
         if (Objects.equals(ship.getShipOrientation(), "horizontal")) {
             row = randomLocation.nextInt(height);
             if(width==3){column=1;}
@@ -61,6 +68,7 @@ public class GameGrid extends AbstractGameGrid {
         Coordinates[0][1] = column;
         ship.setShipCoordinates(Coordinates);
 
+        //Place the ship in the grid according to the ship's coordinates
         this.gameGrid[Coordinates[0][0]][Coordinates[0][1]] = "*";
         if (Objects.equals(ship.getShipOrientation(), "horizontal")) {
             this.gameGrid[Coordinates[0][0]][Coordinates[0][1]-1] = "*";

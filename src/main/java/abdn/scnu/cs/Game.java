@@ -11,6 +11,7 @@ public class Game implements GameControls{
     PlayerGameGrid YourGrid;
     OpponentGameGrid OpponentGrid;
 
+    //Generate and initialize player and opponent grids and ships
     public Game(int row,int column,int shipQuantity){
         this.row=row;
         this.column=column;
@@ -19,16 +20,19 @@ public class Game implements GameControls{
         OpponentGrid=new OpponentGameGrid(row,column,shipQuantity);
     }
 
+    //Get the player's grid and ships
     @Override
     public AbstractGameGrid getPlayersGrid(){
         return YourGrid;
     }
 
+    //Get your opponent's grid and ships
     @Override
     public  AbstractGameGrid getOpponentssGrid(){
         return OpponentGrid;
     }
 
+    //Detects the input, and terminates the program if the input contains "exit"
     @Override
     public void exitGame(String input) {
         if(input.contains("exit")){
@@ -39,8 +43,10 @@ public class Game implements GameControls{
         }
     }
 
+    //Check whether all ships of one party are currently destroyed. If so, output the game result and end the game
     @Override
     public boolean checkVictory() {
+        //Count how many ships have been destroyed
         int OpponentAttack=0;
         int PlayerAttack=0;
         for(int i=0;i<shipQuantity;i++){
@@ -51,6 +57,8 @@ public class Game implements GameControls{
                 PlayerAttack++;
             }
         }
+
+        //Check the statistics to see if anyone has won
         if(OpponentAttack==shipQuantity){
             waitAsecond();
             System.out.println("You have lost!");
@@ -64,13 +72,20 @@ public class Game implements GameControls{
         return false;
     }
 
+    //Complete a round of the game by executing both attacks and checking to see if anyone wins.
     @Override
     public void playRound(String inputCoordinates) {
+
+        //Check that the coordinate input is valid
         exitGame(inputCoordinates);
         checkCoordinate(inputCoordinates);
+
+        //Convert the input to coordinates
         String[] attackCoordinates=inputCoordinates.split(",");
         int attackX=Integer.parseInt(attackCoordinates[0]);
         int attackY=Integer.parseInt(attackCoordinates[1]);
+
+        //Implement player and opponent attacks
         if(!Objects.equals(OpponentGrid.gameGrid[attackX][attackY], "X") && !Objects.equals(OpponentGrid.gameGrid[attackX][attackY], "%")){
             System.out.println("Player is attacking");
             waitAsecond();
@@ -81,6 +96,8 @@ public class Game implements GameControls{
         else {
             System.out.println("You cannot attack the same coordinates repeatedly.");
         }
+
+        //Print the updated grid and check to see if anyone wins
         waitAsecond();
         System.out.println();
         YourGrid.printGrid();
@@ -92,6 +109,7 @@ public class Game implements GameControls{
         }
     }
 
+    //Generate random coordinates to complete the opponent's attack on the player
     public void robotStrategy(){
         Random attackCoordinate=new Random();
         int attackX;
@@ -105,6 +123,7 @@ public class Game implements GameControls{
         attack(attackX,attackY,YourGrid);
     }
 
+    //Implement the attack and update the grid based on the input coordinates
     public void attack(int x,int y,GameGrid Grid){
         for(int i=0;i<this.shipQuantity;i++) {
             if (Grid.ships[i].checkAttack(x,y)) {
@@ -118,6 +137,7 @@ public class Game implements GameControls{
         }
     }
 
+    //Check that the coordinates are formatted
     public void checkCoordinate(String input){
         char[] simpleInput=input.toCharArray();
         if((simpleInput.length!=3) || !Character.isDigit(simpleInput[0]) || !Character.isDigit(simpleInput[2]) || !Character.toString(simpleInput[1]).equals(",")){
@@ -125,6 +145,7 @@ public class Game implements GameControls{
         }
     }
 
+    //Realize the waiting process of the game and enhance the player experience
     public void waitAsecond(){
         try {
             Thread.sleep(1000);

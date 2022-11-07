@@ -1,7 +1,7 @@
 package abdn.scnu.cs;
 
 public abstract class AbstractGameGrid {
-	
+
 	public String [][] gameGrid;
 	public AbstractBattleShip [] ships;
 		
